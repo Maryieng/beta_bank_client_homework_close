@@ -14,6 +14,3 @@ folders: {len([name for name in os.listdir(path) if not os.path.isfile(name)])}"
                 print(os.path.join(root, name))
             for name in dirs:
                 print(os.path.join(root, name))
-
-
-print(directory_dictionary("../tests", 'yes'))
