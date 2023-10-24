@@ -1,6 +1,6 @@
 from typing import Callable
-from masks import card_number_encoder
-from masks import account_number_encoder
+
+from masks import account_number_encoder, card_number_encoder
 
 
 def mask_with_card_type(type_card_or_account: str, func: Callable) -> str:
