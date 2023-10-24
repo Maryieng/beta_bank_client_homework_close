@@ -2,8 +2,7 @@ from typing import Callable
 from masks import card_number_encoder
 from masks import account_number_encoder
 
-card = card_number_encoder('8990922113665229')
-check = account_number_encoder('64686473678894779589')
+
 def mask_with_card_type(type_card_or_account: str, func: Callable) -> str:
     if func == card_number_encoder:
         return f'{type_card_or_account} {func}'
@@ -14,4 +13,10 @@ def mask_with_card_type(type_card_or_account: str, func: Callable) -> str:
 def convert_to_date(string: str) -> str:
     return f'{string[8:10]}.{string[5:7]}.{string[0:4]}'
 
-print(mask_with_card_type("Счет", check))
+
+number_object = input('Укажите объект номера. Карта/счет? \n').lower()
+user_number_input = str(input('Введите номер счета/карты \n'))
+if number_object == "карта":
+    print(mask_with_card_type(str(input('Тип карты: \n')), card_number_encoder(user_number_input)))
+else:
+    print(mask_with_card_type("Счет", account_number_encoder(user_number_input)))
