@@ -2,6 +2,7 @@ from operator import mul
 
 
 def first_and_last_letter(list_strings: list[str]) -> list[str]:
+    """Функция принимает список слов и возвращает список слов у которых первая и последняя буква одинаковые"""
     new_list = []
     for word in list_strings:
         if word == '':
@@ -12,5 +13,6 @@ def first_and_last_letter(list_strings: list[str]) -> list[str]:
 
 
 def maximum_product(list_numbers: list[int]) -> int:
+    """Функция принимает список цифр и возвращает максимальное произведение двух значений из списка"""
     sort_list_numbers = sorted(list_numbers)
     return max(mul(*sort_list_numbers[:2]), mul(*sort_list_numbers[-2:]))
