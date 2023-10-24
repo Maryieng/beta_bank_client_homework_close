@@ -4,7 +4,8 @@ from masks import account_number_encoder
 
 
 def mask_with_card_type(type_card_or_account: str, func: Callable) -> str:
-    """Функция принимает номер и тип карты/счета и возвращает в виде: "Visa Platinum 7000 79** **** 6361 / Счет **4305" """
+    """Функция принимает номер и тип карты/счета и возвращает в виде:
+     "Visa Platinum 7000 79** **** 6361 / Счет **4305" """
     if func == card_number_encoder:
         return f'{type_card_or_account} {func}'
     else:
