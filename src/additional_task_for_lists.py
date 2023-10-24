@@ -1,4 +1,5 @@
 from operator import mul
+from typing import Any
 
 
 def first_and_last_letter(list_strings: list[str]) -> list[str]:
@@ -12,7 +13,7 @@ def first_and_last_letter(list_strings: list[str]) -> list[str]:
     return new_list
 
 
-def maximum_product(list_numbers: list[int]) -> int:
+def maximum_product(list_numbers: list[int]) -> Any:
     """Функция принимает список цифр и возвращает максимальное произведение двух значений из списка"""
     sort_list_numbers = sorted(list_numbers)
     return max(mul(*sort_list_numbers[:2]), mul(*sort_list_numbers[-2:]))
