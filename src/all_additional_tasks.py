@@ -33,3 +33,11 @@ def maximum_product(list_numbers: list[int]) -> Any:
     """Функция принимает список цифр и возвращает максимальное произведение двух значений из списка"""
     sort_list_numbers = sorted(list_numbers)
     return max(mul(*sort_list_numbers[:2]), mul(*sort_list_numbers[-2:]))
+
+
+def product_sorting(list_product: list[dict[str, Any]], category='None') -> list[dict[str, Any]]:
+    if category == 'None':
+        return sorted(list_product, key=lambda x: x['price'], reverse=True)
+    else:
+        return sorted([dict_category for dict_category in list_product if dict_category['category'] == category],
+                      key=lambda x: x['price'], reverse=True)
