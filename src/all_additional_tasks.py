@@ -1,7 +1,7 @@
-from operator import mul
-from typing import Any
 import os
 import os.path
+from operator import mul
+from typing import Any
 
 
 def directory_dictionary(path="../src", recursive_counting=None) -> None:
@@ -36,6 +36,7 @@ def maximum_product(list_numbers: list[int]) -> Any:
 
 
 def product_sorting(list_product: list[dict[str, Any]], category='None') -> list[dict[str, Any]]:
+    """Функция принимает список продуктов и возвращает отсортированный по цене список без/с фильтром по категории"""
     if category == 'None':
         return sorted(list_product, key=lambda x: x['price'], reverse=True)
     else:
