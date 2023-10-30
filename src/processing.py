@@ -7,9 +7,9 @@ def list_dictionaries_with_key(list_dictionary: list[dict[str, Any]], state="EXE
     return [min_dict for min_dict in list_dictionary if min_dict['state'] == state]
 
 
-def sorted_list_of_dict(list_dictionary: list[dict[str, Any]], sort_desired: type = str) -> list[dict[str, Any]]:
+def sorted_list_of_dict(list_dictionary: list[dict[str, Any]], sort_desired: type = bool) -> list[dict[str, Any]]:
     """принимает на вход список словарей и возвращает новый список, где словари отсортированы по убыванию даты.
     Если не указано иначе"""
-    if sort_desired == 'False':
+    if sort_desired == False:
         return sorted(list_dictionary, key=lambda x: x['date'], reverse=True)
     return sorted(list_dictionary, key=lambda x: x['date'])
