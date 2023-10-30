@@ -1,15 +1,17 @@
-from typing import Callable
-
 from masks import account_number_encoder, card_number_encoder
 
 
-def mask_with_card_type(type_card_or_account: str, func: Callable) -> str:
+def mask_with_card_type(number_object: str) -> str:
     """Функция принимает номер и тип карты/счета и возвращает в виде:
      "Visa Platinum 7000 79** **** 6361 / Счет **4305" """
-    if func == card_number_encoder:
-        return f'{type_card_or_account} {func}'
+    number_object_list = number_object.split()
+    if "счет" in number_object:
+        return f'{number_object_list[0].title()} {account_number_encoder(number_object_list[1])}'
+    elif number_object_list[1].isalpha():
+        return (f'{number_object_list[0].title()} {number_object_list[1].title()} '
+                f'{card_number_encoder(number_object_list[2])}')
     else:
-        return f'{type_card_or_account} {func}'
+        return f'{number_object_list[0].title()} {card_number_encoder(number_object_list[1])}'
 
 
 def convert_to_date(string: str) -> str:
@@ -17,9 +19,6 @@ def convert_to_date(string: str) -> str:
     return f'{string[8:10]}.{string[5:7]}.{string[0:4]}'
 
 
-number_object = input('Укажите объект номера. Карта/счет? \n').lower()
-user_number_input = str(input('Введите номер счета/карты \n'))
-if number_object == "карта":
-    print(mask_with_card_type(str(input('Тип карты: \n')), card_number_encoder(user_number_input)))
-else:
-    print(mask_with_card_type("Счет", account_number_encoder(user_number_input)))
+number_object = input('Укажите тип карты/счета и номер карты/счета \n').lower()
+
+print(mask_with_card_type(number_object))
