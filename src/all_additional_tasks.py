@@ -35,7 +35,7 @@ def maximum_product(list_numbers: list[int]) -> Any:
     return max(mul(*sort_list_numbers[:2]), mul(*sort_list_numbers[-2:]))
 
 
-def product_sorting(list_product: list[dict[str, Any]], category='None') -> list[dict[str, Any]]:
+def product_sorting(list_product: list[dict[str, Any]], category: type = None) -> list[dict[str, Any]]:
     """Функция принимает список продуктов и возвращает отсортированный по цене список без/с фильтром по категории"""
     if category == 'None':
         return sorted(list_product, key=lambda x: x['price'], reverse=True)
