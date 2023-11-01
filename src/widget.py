@@ -19,6 +19,6 @@ def convert_to_date(string: str) -> str:
     return f'{string[8:10]}.{string[5:7]}.{string[0:4]}'
 
 
-#number_object = input('Укажите тип карты/счета и номер карты/счета \n').lower()
+# number_object = input('Укажите тип карты/счета и номер карты/счета \n').lower()
 
-#print(mask_with_card_type(number_object))
+# print(mask_with_card_type(number_object))
