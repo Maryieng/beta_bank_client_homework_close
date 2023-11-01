@@ -1,12 +1,6 @@
 from src.masks import account_number_encoder, card_number_encoder
 from src.widget import mask_with_card_type, convert_to_date
 import pytest
-#from src.all_additional_tasks import directory_dictionary
-#from src.all_additional_tasks import first_and_last_letter
-#from src.all_additional_tasks import maximum_product
-#from src.all_additional_tasks import product_sorting
-#from src.processing import list_dictionaries_with_key
-#from src.processing import sorted_list_of_dict
 
 
 @pytest.fixture
@@ -40,3 +34,6 @@ def test_mask_with_card_type():
 
 def test_convert_to_date():
     assert convert_to_date("2018-07-11T02:26:18.671407") == "11.07.2018"
+
+
+
