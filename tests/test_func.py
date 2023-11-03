@@ -31,7 +31,8 @@ def test_account_number_encoder(my_account_card: str) -> None:
 
 @pytest.mark.parametrize("input_value, expected_result",
                          [('счет 73654108430135874305', 'Счет **4305'),
-                          ('Visa Platinum 7000792289606361', "Visa Platinum 7000 79** **** 6361")])
+                          ('Visa Platinum 7000792289606361', "Visa Platinum 7000 79** **** 6361"),
+                          ('Visa 7000792289606361', "Visa 7000 79** **** 6361")])
 def test_mask_with_card_type(input_value: str, expected_result: str) -> None:
     assert mask_with_card_type(input_value) == expected_result
 
