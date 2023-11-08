@@ -2,7 +2,7 @@ from src.masks import account_number_encoder, card_number_encoder
 
 
 def mask_with_card_type(number_object: str) -> str:
-    """Функция принимает номер и тип карты/счета и возвращает в виде:
+    """ Функция принимает номер и тип карты/счета и возвращает в виде:
      "Visa Platinum 7000 79** **** 6361 / Счет **4305" """
     number_object_list = number_object.split()
     if "счет" in number_object:
@@ -15,7 +15,7 @@ def mask_with_card_type(number_object: str) -> str:
 
 
 def convert_to_date(string: str) -> str:
-    """Функция принимает строку и возвращает в виде: "11.07.2018" """
+    """ Функция принимает строку и возвращает в виде: "11.07.2018" """
     return f'{string[8:10]}.{string[5:7]}.{string[0:4]}'
 
 

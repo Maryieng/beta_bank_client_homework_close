@@ -4,6 +4,9 @@ from typing import Any, Callable
 
 
 def log(filename='_.txt') -> Any:
+    """ логирует вызов функции и ее результат в файл или в консоль. необязательный аргумент filename,
+    который определяет имя файла, в который будут записываться логи. Если
+    filename не задан, то логи будут выводиться в консоль """
     def wrapped(function: Callable):
         @wraps(function)
         def inner(*args, **kwargs):
