@@ -1,6 +1,7 @@
-from functools import wraps
-from typing import Callable, Any
 import datetime
+from functools import wraps
+from typing import Any, Callable
+
 
 def log(filename='_.txt') -> Any:
     def wrapped(function: Callable):
@@ -8,10 +9,10 @@ def log(filename='_.txt') -> Any:
         def inner(*args, **kwargs):
             now = datetime.datetime.now()
             try:
-                result = function(*args, **kwargs)
+                _ = function(*args, **kwargs)
                 message = f"{now.strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, ok\n"
             except Exception as e:
-                result = f"error: {str(e)}"
+                _ = f"error: {str(e)}"
                 message = (f"{now.strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, "
                            f"error: {str(e)}, Inputs: {args, kwargs}\n")
             if filename == '_.txt':
@@ -24,8 +25,6 @@ def log(filename='_.txt') -> Any:
     return wrapped
 
 
-@log(filename='_.txt')
-def my_function(x: int, y: int) -> int:
+@log(filename="mylog.txt")
+def my_function(x, y):
     return x / y
-
-print(my_function(4,2))

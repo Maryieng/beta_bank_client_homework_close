@@ -1,20 +1,22 @@
-from typing import Any
-import pytest
-from src.decorators import log, my_function
 import datetime
+from typing import Any
+
+import pytest
+
+from src.decorators import log, my_function
 
 
 @pytest.fixture(params=[10.5, 20, -30])
-def number_one(request) -> int:
+def number_one(request) -> Any:
     return request.param
 
 
 @pytest.fixture(params=[5, 9, 0])
-def number_two(request) -> int:
+def number_two(request) -> Any:
     return request.param
 
 
-@log(filename='nn_.txt')
+@log(filename="mylog.txt")
 def test_my_function(number_one: int, number_two: int) -> None:
     assert my_function(number_one, number_two) == 'Файл создан'
 
