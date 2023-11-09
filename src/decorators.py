@@ -3,31 +3,27 @@ from functools import wraps
 from typing import Any, Callable
 
 
-def log(filename='_.txt') -> Any:
+def log(filename=None) -> Any:
     """ логирует вызов функции и ее результат в файл или в консоль. необязательный аргумент filename,
     который определяет имя файла, в который будут записываться логи. Если
     filename не задан, то логи будут выводиться в консоль """
-    def wrapped(function: Callable):
+    def wrapped(function: Callable) -> Any:
         @wraps(function)
-        def inner(*args, **kwargs):
-            now = datetime.datetime.now()
+        def inner(*args: int) -> None:
             try:
-                _ = function(*args, **kwargs)
-                message = f"{now.strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, ok\n"
+                result = function(*args)
+                message = f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, ok"
+                print(message)
+                if filename:
+                    with open(filename, "w") as file:
+                        file.write(message + "\n")
             except Exception as e:
-                _ = f"error: {str(e)}"
-                message = (f"{now.strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, "
-                           f"error: {str(e)}, Inputs: {args, kwargs}\n")
-            if filename == '_.txt':
-                return message
-            else:
-                with open(filename, 'w+') as file:
-                    file.write(message)
-                return "Файл создан"
+                message_error = (f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')}, "
+                                 f"Возникла ошибка:{str(e)}. {function.__name__}, Inputs: {args}\n")
+                print(message_error)
+                if filename:
+                    with open(filename, "a") as file:
+                        file.write(message_error + "\n")
+                    raise e
         return inner
     return wrapped
-
-
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x / y
