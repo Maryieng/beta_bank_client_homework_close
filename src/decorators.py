@@ -9,7 +9,8 @@ def log(filename=None) -> Any:
     filename не задан, то логи будут выводиться в консоль """
     def wrapped(function: Callable) -> Any:
         @wraps(function)
-        def inner(*args: int) -> None:
+        def inner(*args: int) -> Any:
+            global result
             try:
                 result = function(*args)
                 message = f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, ok"
@@ -25,5 +26,6 @@ def log(filename=None) -> Any:
                     with open(filename, "a") as file:
                         file.write(message_error + "\n")
                     raise e
+            return result
         return inner
     return wrapped
