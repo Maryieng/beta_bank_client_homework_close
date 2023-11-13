@@ -10,7 +10,6 @@ def log(filename=None) -> Any:
     def wrapped(function: Callable) -> Any:
         @wraps(function)
         def inner(*args: int) -> Any:
-            global result
             try:
                 result = function(*args)
                 message = f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')}, {function.__name__}, ok"
