@@ -1,9 +1,13 @@
 import json
 import os
+from unittest import mock
+from unittest.mock import patch
 
-import pytest
+from dotenv import load_dotenv
 
 from src.utils import getting_data_from_file, transaction_amount_in_rubles
+
+load_dotenv()
 
 
 def test_getting_data_from_file():
@@ -21,7 +25,7 @@ def test_getting_data_from_file():
     assert result == expected_data
 
 
-def test_getting_data_from_file_None():
+def test_getting_data_from_file_error():
     test_file_name = "test_data.json"
     current_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     file_path = os.path.join(current_directory, 'data', test_file_name)
@@ -31,17 +35,54 @@ def test_getting_data_from_file_None():
     assert result == []
 
 
-test_getting_data_from_file()
+def test_getting_data_from_file_not_found():
+    assert getting_data_from_file("test_data.json") == []
 
 
-@pytest.mark.parametrize("input_value, expected_result",
-                         [(596171168, 79931.03),
-                          (895315941, 5240026.38)])
-def test_transaction_amount_in_rubles(input_value, expected_result):
-    assert transaction_amount_in_rubles(input_value) == expected_result
+@mock.patch("os.getenv")
+def test_transaction_in_rubles(mock_getenv):
+    operation = {
+        "operationAmount": {
+            "currency": {
+                "code": "RUB"
+            },
+            "amount": 100.0
+        }
+    }
+    result = transaction_amount_in_rubles(operation)
+    assert result == 100.0
+    mock_getenv.assert_not_called()
 
 
-def test_transaction_amount_in_rubles_console(capsys):
-    transaction_amount_in_rubles(895315941)
-    captured = capsys.readouterr()
-    assert captured.out == "ValueError: Операция совершена не в рублях\n"
+@patch('src.utils.requests.get')
+def test_transaction_amount_in_rubles_with_rub_currency(mock_get):
+    operation = {
+        "operationAmount": {
+            "currency": {
+                "code": "RUB"
+            },
+            "amount": 100.0
+        }
+    }
+    result = transaction_amount_in_rubles(operation)
+    assert result == 100.0
+
+
+@patch('src.utils.requests.get')
+def test_transaction_amount_in_rubles_with_non_rub_currency(mock_get):
+    operation = {
+        "operationAmount": {
+            "currency": {
+                "code": "USD"
+            },
+            "amount": 100.0
+        }
+    }
+    mock_get.return_value = mock.Mock()
+    mock_get.return_value.json.return_value = {
+        "quotes": {
+            "USDRUB": 75.0
+        }
+    }
+    result = transaction_amount_in_rubles(operation)
+    assert result == 7500.0
