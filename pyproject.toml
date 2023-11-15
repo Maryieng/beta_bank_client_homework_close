@@ -10,6 +10,7 @@ python = "^3.11"
 forex-python = "^1.8"
 types-requests = "^2.31.0.10"
 python-dotenv = "^1.0.0"
+logging = "^0.4.9.6"
 
 
 [tool.poetry.group.lint.dependencies]
