@@ -1,6 +1,8 @@
 import unittest.mock as mock
+
 import pandas as pd
 import pytest
+
 from src.reading_data import reading_data_from_file_csv, reading_data_from_file_xlsx
 
 
