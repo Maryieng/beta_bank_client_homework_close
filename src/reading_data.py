@@ -1,7 +1,6 @@
 import os
 import re
-from collections import Counter
-from typing import Any, Counter
+from typing import Any
 
 import pandas as pd
 
@@ -32,13 +31,12 @@ def searching_data_by_string(list_dictionaries: list[dict], string: str) -> list
     return result
 
 
-def search_dictionaries_by_category(list_dictionaries: list[dict], category_dictionary: list) -> dict:
+def search_dictionaries_by_category(list_dictionaries: list[dict], category_dictionary: dict) -> dict:
     """ принимает список словарей с данными о банковских операциях и категорий операций. возвращать словарь,
      в котором ключи — это названия категорий, а значения — это количество операций в каждой категории."""
-    category_counts: Counter[str] = Counter()
+    operation_count = {category: 0 for category in category_dictionary.values()}
     for transaction in list_dictionaries:
-        category = transaction.get('description', 'Uncategorized')
-        category_counts[category] += 1
-    for category in category_dictionary:
-        category_counts.setdefault(category, 0)
-    return dict(category_counts)
+        category = transaction.get('description')
+        if category in operation_count:
+            operation_count[category] += 1
+    return operation_count
