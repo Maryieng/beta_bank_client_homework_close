@@ -86,10 +86,10 @@ def transactions() -> list[dict[Any, Any]]:
     ])
 
 
-def test_filter_by_currency(transactions: list[dict[Any, Any]]) -> None:
+def test_filter_by_currency(transactions) -> None:
     usd_transactions = filter_by_currency(transactions, "USD")
     for _ in range(2):
-        print(next(usd_transactions)["id"])
+        print(next(usd_transactions)["id"])  # type: ignore
 
 
 def test_transaction_descriptions(transactions: list[dict[Any, Any]]) -> None:
