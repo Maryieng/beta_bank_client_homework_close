@@ -1,12 +1,10 @@
 from typing import Any, Generator
 
 
-def filter_by_currency(lst_transactions: list[dict[str, Any]], currency: str) -> Generator:
-    """ Принимает список словарей и возвращает итератор, который выдает по очереди операции,
-     в которых указана заданная валюта. """
-    for transaction in lst_transactions:
-        if transaction["operationAmount"]["currency"]["code"] == currency:
-            yield transaction
+def filter_by_currency(lst_transactions: list[dict[str, Any]], currency: str) -> list:
+    """ Принимает список словарей и возвращает итератор, который выдает в которых указана заданная валюта. """
+    return [transaction for transaction in lst_transactions if transaction["operationAmount"]["currency"]["code"]
+            == currency]
 
 
 def transaction_descriptions(transaction: list[dict[str, int]]) -> Generator:

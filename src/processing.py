@@ -4,7 +4,7 @@ from typing import Any
 def list_dictionaries_with_key(list_dictionary: list[dict[str, Any]], state="EXECUTED") -> list[dict[str, Any]]:
     """ принимает на вход список словарей и значение для ключа state
      и возвращает новый список, у которых ключ state """
-    return [min_dict for min_dict in list_dictionary if min_dict['state'] == state]
+    return [dictionary for dictionary in list_dictionary if dictionary.get('state') == state]
 
 
 def sorted_list_of_dict(list_dictionary: list[dict[str, Any]], sort_desired: bool) -> list[dict[str, Any]]:
